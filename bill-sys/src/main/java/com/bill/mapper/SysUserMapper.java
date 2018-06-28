@@ -2,6 +2,8 @@ package com.bill.mapper;
 
 import com.bill.entity.SysUser;
 
+import java.util.List;
+
 /**
  * @author LiuYang
  * @version 1.0
@@ -10,6 +12,16 @@ import com.bill.entity.SysUser;
  * @date 2018-06-27 16:14
  */
 public interface SysUserMapper {
+    /**
+    *@author LiuYang
+    *@methodName selectAll
+    *@description 按条件查询所有
+    *@date 2018/6/28 17:58
+    *@param username
+    *@return java.util.List<com.bill.entity.SysUser>
+    **/
+    List<SysUser> selectAll(String username);
+
     /**
     *@author LiuYang
     *@methodName selectById

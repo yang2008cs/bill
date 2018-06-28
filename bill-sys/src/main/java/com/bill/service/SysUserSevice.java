@@ -13,80 +13,101 @@ import com.bill.util.Result;
 public interface SysUserSevice {
     /**
     *@author LiuYang
-    *@methodName selectById
-    *@description 根据id查询用户
-    *@date 2018/6/27 17:09
-    *@param id
+    *@methodName selectByPage
+    *@description 分页查询
+    *@date 2018/6/28 18:07
+    *@param username, pageIndex, pageSize
     *@return com.bill.util.Result
     **/
-    Result selectById(String id);
-
-   /**
-   *@author LiuYang
-   *@methodName checkUser
-   *@description 检查账号是否存在
-   *@date 2018/6/27 17:09
-   *@param username
-   *@return com.bill.util.Result
-   **/
-    Result checkUser (String username);
+    Result selectByPage(String username,Integer pageIndex,Integer pageSize);
 
     /**
-    *@author LiuYang
-    *@methodName selectByUsername
-    *@description 根据账号查询用户
-    *@date 2018/6/27 17:09
-    *@param username
-    *@return com.bill.util.Result
-    **/
+     * @param username
+     * @return java.util.List<com.bill.entity.SysUser>
+     * @author LiuYang
+     * @methodName selectAll
+     * @description 按条件查询所有
+     * @date 2018/6/28 17:59
+     **/
+    Result selectAll(String username);
+
+    /**
+     * @param id
+     * @return com.bill.util.Result
+     * @author LiuYang
+     * @methodName selectById
+     * @description 根据id查询用户
+     * @date 2018/6/27 17:09
+     **/
+    Result selectById(String id);
+
+    /**
+     * @param username
+     * @return com.bill.util.Result
+     * @author LiuYang
+     * @methodName checkUser
+     * @description 检查账号是否存在
+     * @date 2018/6/27 17:09
+     **/
+    Result checkUser(String username);
+
+    /**
+     * @param username
+     * @return com.bill.util.Result
+     * @author LiuYang
+     * @methodName selectByUsername
+     * @description 根据账号查询用户
+     * @date 2018/6/27 17:09
+     **/
     Result selectByUsername(String username);
 
     /**
-    *@author LiuYang
-    *@methodName count
-    *@description 查询用户数量
-    *@date 2018/6/27 17:09
-    *@param
-    *@return com.bill.util.Result
-    **/
+     * @param
+     * @return com.bill.util.Result
+     * @author LiuYang
+     * @methodName count
+     * @description 查询用户数量
+     * @date 2018/6/27 17:09
+     **/
     Result count();
 
     /**
-    *@author LiuYang
-    *@methodName deleteById
-    *@description 根据id删除用户
-    *@date 2018/6/27 17:09
-    *@param id
-    *@return com.bill.util.Result
-    **/
+     * @param id
+     * @return com.bill.util.Result
+     * @author LiuYang
+     * @methodName deleteById
+     * @description 根据id删除用户
+     * @date 2018/6/27 17:09
+     **/
     Result deleteById(String id);
 
     /**
-    *@author LiuYang
-    *@methodName insert
-    *@description 添加用户
-    *@date 2018/6/27 17:09
-    *@param sysUser
-    *@return com.bill.util.Result
-    **/
+     * @param sysUser
+     * @return com.bill.util.Result
+     * @author LiuYang
+     * @methodName insert
+     * @description 添加用户
+     * @date 2018/6/27 17:09
+     **/
     Result insert(SysUser sysUser);
 
     /**
-    *@author LiuYang
-    *@methodName update
-    *@description 修改用户信息
-    *@date 2018/6/27 17:08
-    *@param sysUser
-    *@return com.bill.util.Result
-    **/
+     * @param sysUser
+     * @return com.bill.util.Result
+     * @author LiuYang
+     * @methodName update
+     * @description 修改用户信息
+     * @date 2018/6/27 17:08
+     **/
     Result update(SysUser sysUser);
+
     /**
-    *@author LiuYang
-    *@methodName rePass
-    *@description 修改密码
-    *@date 2018/6/27 17:08
-    *@param sysUser
-    *@return com.bill.util.Result
-    **/
+     * @param sysUser
+     * @return com.bill.util.Result
+     * @author LiuYang
+     * @methodName rePass
+     * @description 修改密码
+     * @date 2018/6/27 17:08
+     **/
     Result rePass(SysUser sysUser);
 }
