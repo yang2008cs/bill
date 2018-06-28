@@ -1,0 +1,71 @@
+#Server
+server:
+  port: 8083
+  servlet:
+    context-path: /
+
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/static/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML5
+    servlet:
+      content-type: text/html
+
+#MySQL
+  datasource:
+    url: jdbc:mysql://192.168.0.110:3306/bill?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+    druid:
+      stat-view-servlet:
+        login-username: admin
+        login-password: 123456
+
+
+#Mybatis日志
+mybatis:
+  type-aliases-package: com.bill.entity
+  mapperLocations: classpath:mapper/**/*.xml
+
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    use-generated-keys: true
+
+#日志配置
+logging:
+  file: ./logs/bill.log
+  level:
+    com.len.mapper: debug
+
+
+bill:
+  uploadPath: ./file/
+  isDayType: false
+
+  imagePath: ./image/
+
+  salt: _bill
+
+
