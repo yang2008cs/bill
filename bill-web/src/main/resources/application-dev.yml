@@ -14,6 +14,20 @@ spring:
     mode: HTML5
     servlet:
       content-type: text/html
+  # 电子邮箱配置
+  mail:
+    protocol: smtp #smtp是邮件发送协议，pop3和imap是邮件接收协议。因为我们要发送邮件，因此是smtp
+    host: smtp.126.com #邮件发送服务器的主机，这里采用的是126邮箱来发送邮件
+    port: 25 #邮件发送服务器的端口
+    username: yang2008cs@126.com #邮件发送服务器的用户名
+    password: muumo0323 #密码
+    properties:
+          mail:
+            smtp:
+              auth: true #一般情况下，发送邮件都是要进行验证
+              starttls:
+                enable: true
+                required: true
 
 #MySQL
   datasource:
