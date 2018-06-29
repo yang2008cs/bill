@@ -18,7 +18,7 @@
     <sql id="Base_Column_List">
         id, username, password, age, email, photo, real_name,  create_date, update_date, del_flag
     </sql>
-    <!-- 根据id查询 -->
+    <!-- 根据条件查询 -->
     <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
