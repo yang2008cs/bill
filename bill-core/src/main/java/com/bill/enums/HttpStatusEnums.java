@@ -9,6 +9,7 @@ package com.bill.enums;
  */
 public enum HttpStatusEnums {
 
+
     CONTINUE(100, "Continue"),
     SWITCHING_PROTOCOLS(101, "Switching Protocols"),
     PROCESSING(102, "Processing"),
@@ -91,7 +92,6 @@ public enum HttpStatusEnums {
     NOT_EXTENDED(510, "Not Extended"),
     NETWORK_AUTHENTICATION_REQUIRED(511, "Network Authentication Required"),
 
-
     SUCCESS(200, "成功"),
     NO_DATA(201,"%s没有数据"),
     INVALID_TOKEN(202, "登录过期或者无效，请重新登录"),
@@ -116,7 +116,9 @@ public enum HttpStatusEnums {
     FIELD_NOT_ENOUGH(517, "属性%s不存在"),
     INFO_NOT_ENOUGH(518,"%s未完善"),
     SAVE_ERROR(600,"%s生成失败"),
-    TEMP_ERROR(700,"%s");
+    TEMP_ERROR(700,"%s"),
+    UPLOAD_ERROR(601,"%s上传文件失败"),
+    FILE_NAME_ERROR(602,"上传文件文件名已存在");
 
     private Integer code;
     private String msg;
