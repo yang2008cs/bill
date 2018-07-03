@@ -40,7 +40,6 @@ public class SysMenu implements Serializable{
     /** 更新时间 **/
     private Date updateDate;
     /** 权限 **/
-    @NotEmpty(message = "权限不能为空")
     private String permission;
     /** 菜单类型 0按钮 1菜单**/
     private Byte menuType;
