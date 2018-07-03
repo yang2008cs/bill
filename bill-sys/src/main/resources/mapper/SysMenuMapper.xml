@@ -20,7 +20,7 @@
         <selectKey keyProperty="id" resultType="string" order="BEFORE">
             select replace(uuid(), '-', '') as id from dual
         </selectKey>
-        intsert into sys_menu (id, name, p_id, url, order_num,  create_date, update_date, permission, menu_type)
+        intsert into sys_menu (id, name,p_id, url,order_num,create_date,update_date,permission,menu_type)
         VALUES (#{id},#{name},#{pid},#{url},#{orderNum},SYSDATE(),SYSDATE(),#{permission},#{menuType})
     </insert>
     <!-- 修改 -->
@@ -56,5 +56,13 @@
     <delete id="deleteById" parameterType="java.lang.String">
         delete from sys_menu
         where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <!-- 删除 -->
+    <delete id="deleteByIds" parameterType="java.util.List">
+        delete from sys_menu
+        where id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
     </delete>
 </mapper>
