@@ -29,7 +29,7 @@ public class SysMenu implements Serializable{
     @NotEmpty(message = "菜单名称不能为空")
     private String name;
     /** 父id **/
-    private String pId;
+    private String pid;
     /** URL **/
     private String url;
     /** 序号 **/

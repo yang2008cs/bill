@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.bill.entity.SysMenu">
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="p_id" jdbcType="VARCHAR" property="pId" />
+        <result column="p_id" jdbcType="VARCHAR" property="pid" />
         <result column="url" jdbcType="VARCHAR" property="url" />
         <result column="order_num" jdbcType="INTEGER" property="orderNum" />
         <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
@@ -15,4 +15,24 @@
     <sql id="Base_Column_List">
         id, name, p_id, url, order_num, icon, create_date, update_date, permission, menu_type
     </sql>
+
+    <insert id="insert" parameterType="com.bill.entity.SysMenu">
+        <selectKey keyProperty="id" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as id from dual
+        </selectKey>
+        intsert into sys_menu (id, name, p_id, url, order_num,  create_date, update_date, permission, menu_type)
+        VALUES (#{id},#{name},#{pid},#{url},#{orderNum},SYSDATE(),SYSDATE(),#{permission},#{menuType})
+    </insert>
+
+    <update id="update" parameterType="com.bill.entity.SysMenu">
+        update sys_menu set
+        name = #{name},
+        p_id = #{pid},
+        url = #{url},
+        order_num = #{orderNum},
+        permission = #{permission},
+        menu_type = #{menuType},
+        update_date = SYSDATE()
+        WHERE  id = #{id}
+    </update>
 </mapper>
