@@ -15,7 +15,7 @@
     <sql id="Base_Column_List">
         id, name, p_id, url, order_num, icon, create_date, update_date, permission, menu_type
     </sql>
-
+    <!-- 添加 -->
     <insert id="insert" parameterType="com.bill.entity.SysMenu">
         <selectKey keyProperty="id" resultType="string" order="BEFORE">
             select replace(uuid(), '-', '') as id from dual
@@ -23,7 +23,7 @@
         intsert into sys_menu (id, name, p_id, url, order_num,  create_date, update_date, permission, menu_type)
         VALUES (#{id},#{name},#{pid},#{url},#{orderNum},SYSDATE(),SYSDATE(),#{permission},#{menuType})
     </insert>
-
+    <!-- 修改 -->
     <update id="update" parameterType="com.bill.entity.SysMenu">
         update sys_menu set
         name = #{name},
@@ -35,4 +35,26 @@
         update_date = SYSDATE()
         WHERE  id = #{id}
     </update>
+    <!-- 根据条件查询 -->
+    <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_menu
+        where 1 =1
+        <if test="name != null">
+            AND name  LIKE  CONCAT('%','${name}','%' )
+        </if>
+    </select>
+    <!-- 根据id查询 -->
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_menu
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <!-- 删除 -->
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete from sys_menu
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
 </mapper>
