@@ -13,14 +13,14 @@
         <result column="menu_type" jdbcType="TINYINT" property="menuType" />
     </resultMap>
     <sql id="Base_Column_List">
-        id, name, p_id, url, order_num, icon, create_date, update_date, permission, menu_type
+        id, name, p_id, url, order_num, create_date, update_date, permission, menu_type
     </sql>
     <!-- 添加 -->
     <insert id="insert" parameterType="com.bill.entity.SysMenu">
         <selectKey keyProperty="id" resultType="string" order="BEFORE">
             select replace(uuid(), '-', '') as id from dual
         </selectKey>
-        intsert into sys_menu (id, name,p_id, url,order_num,create_date,update_date,permission,menu_type)
+        insert into sys_menu (id, name,p_id, url,order_num,create_date,update_date,permission,menu_type)
         VALUES (#{id},#{name},#{pid},#{url},#{orderNum},SYSDATE(),SYSDATE(),#{permission},#{menuType})
     </insert>
     <!-- 修改 -->

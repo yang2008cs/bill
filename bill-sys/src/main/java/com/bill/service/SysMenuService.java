@@ -36,10 +36,10 @@ public interface SysMenuService {
    *@methodName selectAll
    *@description 按条件查询
    *@date 2018/7/3 17:52
-   *@param name,pageIndex,pageSize
-   *@return com.bill.util.Result
-   **/
-    Result selectAll(String name,Integer pageIndex,Integer pageSize);
+    *@return com.bill.util.Result
+   *
+    * @param name,pageIndex,pageSize*/
+    Result selectAll(String name, Integer pageIndex, Integer pageSize);
     /**
     *@author LiuYang
     *@methodName selectById

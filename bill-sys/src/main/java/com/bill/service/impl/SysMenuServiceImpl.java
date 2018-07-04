@@ -1,7 +1,6 @@
 package com.bill.service.impl;
 
 import com.bill.entity.SysMenu;
-import com.bill.entity.SysUser;
 import com.bill.mapper.SysMenuMapper;
 import com.bill.service.SysMenuService;
 import com.bill.util.Result;
@@ -37,7 +36,7 @@ public class SysMenuServiceImpl implements SysMenuService{
     }
 
     @Override
-    public Result selectAll(String name,Integer pageIndex,Integer pageSize) {
+    public Result selectAll(String name, Integer pageIndex, Integer pageSize) {
         Page<SysMenu> page = PageHelper.startPage(pageIndex, pageSize);
         List<SysMenu> sysMenuList = sysMenuMapper.selectAll(name);
         return ResultUtils.success(sysMenuList);

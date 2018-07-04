@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -45,9 +46,12 @@ public class SysMenuController {
             @ApiImplicitParam(dataType = "java.lang.Integer", name = "pageSize", value = "一页最大显示条数,默认十条", required = false)
     })
     @GetMapping("/queryByPage")
-    public Result queryByPage(@RequestParam("name") String name,
+    public String queryByPage(@RequestParam(value = "name",required = false) String name,
                               @RequestParam(value = "pageIndex", defaultValue = "1", required = false) Integer pageIndex,
-                              @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize){
-        return sysMenuService.selectAll(name,pageIndex,pageSize);
+                              @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+                              ModelMap modelMap){
+        Result<SysMenu> result = sysMenuService.selectAll(name,pageIndex,pageSize);
+        modelMap.addAttribute("result",result);
+        return "menuList";
     }
 }
