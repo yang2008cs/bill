@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author LiuYang
  * @version 1.0
@@ -61,6 +63,12 @@ public class SysMenuController {
                                   @RequestParam(value = "pageIndex", defaultValue = "1", required = false) Integer pageIndex,
                                   @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
         return sysMenuService.selectAll(name, pageIndex, pageSize);
+    }
 
+    @ApiOperation(value = "菜单树", httpMethod = "GET", notes = "菜单树")
+    @GetMapping("/menuTree")
+    @ResponseBody
+    public List<SysMenu> menuTree() {
+        return sysMenuService.getTree();
     }
 }
