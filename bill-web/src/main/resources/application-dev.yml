@@ -7,7 +7,7 @@ server:
 spring:
   thymeleaf:
     cache: false
-    prefix: classpath:/static/
+    prefix: classpath:/templates/
     check-template-location: true
     suffix: .html
     encoding: UTF-8
