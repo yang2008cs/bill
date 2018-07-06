@@ -3,6 +3,7 @@ package com.bill.mapper;
 import com.bill.entity.SysMenu;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author LiuYang
@@ -35,10 +36,19 @@ public interface SysMenuMapper {
     *@methodName selectAll
     *@description 按条件查询
     *@date 2018/7/3 17:49
-    *@param name
+    *@param map
     *@return java.util.List<com.bill.entity.SysMenu>
     **/
-    List<SysMenu> selectAll(String name);
+    List<SysMenu> selectAll(Map<String,Object> map);
+    /**
+    *@author LiuYang
+    *@methodName getChildren
+    *@description 查询所有子菜单
+    *@date 2018/7/6 18:03
+    *@param
+    *@return java.util.List<com.bill.entity.SysMenu>
+    **/
+    List<SysMenu> getChildren();
     /**
     *@author LiuYang
     *@methodName selectById
