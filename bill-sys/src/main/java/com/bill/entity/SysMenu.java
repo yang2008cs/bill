@@ -41,7 +41,7 @@ public class SysMenu implements Serializable{
     private Date updateDate;
     /** 权限 **/
     private String permission;
-    /** 菜单类型 0按钮 1菜单**/
+    /** 菜单类型 0按钮 1一级菜单 2二级菜单**/
     private Byte menuType;
     /** 子菜单 **/
     private List<SysMenu> children=new ArrayList<SysMenu>();
