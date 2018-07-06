@@ -25,6 +25,11 @@ public class SysMenuController {
     @Autowired
     private SysMenuService sysMenuService;
 
+    @RequestMapping("showAddMenu")
+    public String showAddMenu(){
+        return "system/menu/addMenu";
+    }
+
     @ApiOperation(value = "添加菜单", httpMethod = "POST", notes = "添加菜单")
     @PostMapping("insert")
     @ResponseBody
@@ -42,8 +47,7 @@ public class SysMenuController {
     @ApiOperation(value = "跳转菜单页面", httpMethod = "GET", notes = "跳转菜单页面")
     @GetMapping("/queryByPage")
     public String queryByPage() {
-
-        return "menuList";
+        return "system/menu/menuList";
     }
 
     @ApiOperation(value = "查询所有数据", httpMethod = "GET", notes = "查询所有数据")

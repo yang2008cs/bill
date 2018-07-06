@@ -1,0 +1,118 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{../../../static/plugins/layui/css/layui.css}" media="all">
+    <title>菜单管理</title>
+</head>
+<body>
+<form  class="layui-form layui-form-pane" style="margin-left: 20px;">
+    <div style="width:100%;height:500px;overflow: auto;">
+        <div class="layui-form-item">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
+                <legend style="font-size:16px;">基础信息</legend>
+            </fieldset>
+        </div>
+        <div style="margin-left:25%">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span style="color: red">*</span>类型</label>
+                <div class="layui-input-block" style="width:190px;">
+                    <select name="menuType" id="menuType" lay-verify="menuType"  lay-filter="menuType">
+                        <option value=""></option>
+                        <option value="0">按钮</option>
+                        <option value="1">一级菜单</option>
+                        <option value="2">二级菜单</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">父级菜单</label>
+                <div class="layui-input-inline">
+                    <input type="hidden" name="pid" id="pid">
+                    <input type="text" name="pname"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color: red">*</span>菜单名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="name" name="name"  lay-verify="name"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label  class="layui-form-label">url</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="url" name="url"  lay-verify="name"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">权限</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="permission" name="permission"  lay-verify="permission"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">序号</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="orderNum" name="orderNum"  lay-verify="orderNum"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%;height: 55px;background-color: white;border-top:1px solid #e6e6e6;
+  position: fixed;bottom: 1px;margin-left:-20px;">
+        <div class="layui-form-item" style=" float: right;margin-right: 30px;margin-top: 8px">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="*">增加</button>
+                <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script th:src="@{../../../static/plugins/layui/layui.js}"></script>
+<script th:src="@{../../../static/plugins/jquery/jquery-3.2.1.min.js}"></script>
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //各种基于事件的操作，下面会有进一步介绍
+        //自定义验证规则
+        var type=$('#menuType');
+        form.verify({
+            menuType:function(v){
+                console.info(v=='')
+                if(v==''){
+                    return '类型不能为空';
+                }
+            }
+            ,pName:function(v){
+                if(type.val()!='1'&&v.trim()==''){
+                    return '父菜单不能为空';
+                }
+            }
+            ,name:function(v){
+                if(v.trim()==''){
+                    return '名称不能为空';
+                }
+            }
+            ,url:function(v){
+                if(type.val()=='1'){
+                    $('#url').val('');
+                }
+                if(type.val()=='0'&&v.trim()==''){
+                    return 'url不能为空';
+                }
+            }
+            ,permission:function(v){
+                if((type.val()=='1'||type.val()=='0')&&v.trim()==''){
+                    return '权限不能为空';
+                }
+            }
+            ,orderNum: [/^[0-9]*[1-9][0-9]*$/, '请填写序号(正整数)']
+        });
+    });
+</script>
+
+</body>
+</html>
