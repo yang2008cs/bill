@@ -39,7 +39,7 @@ public class SysMenuServiceImpl implements SysMenuService{
     public Result selectAll(String name, Integer pageIndex, Integer pageSize) {
         Page<SysMenu> page = PageHelper.startPage(pageIndex, pageSize);
         List<SysMenu> sysMenuList = sysMenuMapper.selectAll(name);
-        return ResultUtils.success(sysMenuList);
+        return ResultUtils.success(sysMenuList,page.getTotal());
     }
 
     @Override

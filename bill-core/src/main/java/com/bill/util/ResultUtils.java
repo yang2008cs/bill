@@ -23,7 +23,7 @@ public class ResultUtils {
         result.setCode(HttpStatusEnums.SUCCESS.getCode());
         result.setMsg(HttpStatusEnums.SUCCESS.getMsg());
         result.setData(object);
-        result.setTotal(total);
+        result.setCount(total);
         return result;
     }
 

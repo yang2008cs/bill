@@ -24,6 +24,6 @@ public class Result<T> {
     private T data;
 
     /** 总记录数 */
-    private Long total;
+    private Long count;
 }
 

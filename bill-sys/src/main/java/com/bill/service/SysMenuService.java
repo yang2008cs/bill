@@ -39,7 +39,7 @@ public interface SysMenuService {
     *@return com.bill.util.Result
    *
     * @param name,pageIndex,pageSize*/
-    Result selectAll(String name, Integer pageIndex, Integer pageSize);
+   Result selectAll(String name, Integer pageIndex, Integer pageSize);
     /**
     *@author LiuYang
     *@methodName selectById

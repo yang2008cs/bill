@@ -1,19 +1,101 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" th:href="@{../static/plugins/layui/css/layui.css}" media="all">
+    <title>菜单管理</title>
+    <style>
+       body{overflow-y: scroll;}
+    </style>
 </head>
 <body>
-   <table>
 
-       <li th:text="${result.msg}"></li>
-       <li th:text="${result.code}"></li>
-       <tr th:each="sysMenu:${result.data}">
-           <td th:text="${sysMenu.name}"></td>
-       </tr>
-   </table>
+<div  class="layui-col-md13">
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-normal" data-type="add">
+            <i class="layui-icon">&#xe608;</i>新增
+        </button>
+    </div>
+</div>
+
+<table class="layui-table" id="table_menu" lay-data="{ id:'menuReload'}" lay-filter="demo"></table>
+<script th:src="@{../static/plugins/layui/layui.js}"></script>
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+        table.render({
+            elem: '#table_menu', //指定原始表格元素选择器（推荐id选择器）
+            height: 'full-20', //容器高度
+            url: '/sysMenu/menuList',
+            cellMinWidth:80,
+            cols: [
+                [
+                    {type: 'checkbox',checkbox: true},
+                    {title:'序号',templet: '#indexTpl'},
+                    {field: 'name',title:'菜单名称'},
+                    {field: 'url',title:'url'},
+                    {field: 'orderNum',title:'菜单序号'},
+                    {field: 'permission',title:'权限'},
+                    {field: 'menuType',title:'菜单类型',templet: function(d){ return d.menuType=="0"?'按钮':'菜单'}},
+                    {fixed: 'right',title:'操作',align:'center', toolbar: '#barDemo'}
+                ]
+            ], //设置表头
+            page: true,
+            done: function(res, curr, count){
+                //如果是异步请求数据方式，res即为你接口返回的信息。
+                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                console.log(res);
+                //得到当前页码
+                console.log(curr);
+                //得到数据总量
+                console.log(count);
+            },
+            request: {
+                pageName: 'pageIndex' //页码的参数名称，默认：page
+                ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            response: {//不设置数据不会渲染到表格上
+                statusName: 'code' //数据状态的字段名称，默认：code
+                ,statusCode: 200 //成功的状态码，默认：0
+                ,msgName: 'msg' //状态信息的字段名称，默认：msg
+                ,countName: 'count' //数据总数的字段名称，默认：count
+                ,dataName: 'data' //数据列表的字段名称，默认：data
+            }
+        });
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'detail'){
+                layer.msg('ID：'+ data.id + ' 的查看操作');
+            } else if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                layer.alert('编辑行：<br>'+ JSON.stringify(data))
+            }
+        });
+        var $ = layui.$, active = {
+            add: function () {
+                alert(123132);
+            }
+        }
+        //绑定click点击事件
+        $('.layui-btn-group .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+<!--设置序号自动生成-->
+<script type="text/html" id="indexTpl">
+    {{d.LAY_TABLE_INDEX+1}}
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 </body>
 </html>
