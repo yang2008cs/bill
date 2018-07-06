@@ -3,115 +3,210 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <link rel="stylesheet" th:href="@{../../../static/plugins/layui/css/layui.css}" media="all">
     <title>菜单管理</title>
 </head>
 <body>
-<form  class="layui-form layui-form-pane" style="margin-left: 20px;">
-    <div style="width:100%;height:500px;overflow: auto;">
-        <div class="layui-form-item">
-            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
-                <legend style="font-size:16px;">基础信息</legend>
-            </fieldset>
+    <form class="layui-form layui-form-pane" style="margin-left: 20px;">
+        <div style="width:100%;height:500px;overflow: auto;">
+            <div class="layui-form-item">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
+                    <legend style="font-size:16px;">基础信息</legend>
+                </fieldset>
+            </div>
+            <div style="margin-left:25%">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span style="color: red">*</span>类型</label>
+                    <div class="layui-input-block" style="width:190px;">
+                        <select name="menuType" id="menuType" lay-verify="menuType" lay-filter="menuType">
+                            <option value=""></option>
+                            <option value="0">按钮</option>
+                            <option value="1">一级菜单</option>
+                            <option value="2">二级菜单</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">父级菜单</label>
+                    <div class="layui-input-inline">
+                        <input type="hidden" name="pid" id="pid">
+                        <input type="text" name="pname" lay-verify="pname" onclick="showTree();" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                    <div id="treeNode" style="display:none; position: absolute;z-index:1000;background-color: white;">
+                        <div id="tree"></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red">*</span>菜单名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="name" name="name" lay-verify="name" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">url</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="url" name="url" lay-verify="name" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">权限</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="permission" name="permission" lay-verify="permission" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">序号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="orderNum" name="orderNum" lay-verify="orderNum" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div style="margin-left:25%">
-            <div class="layui-form-item">
-                <label class="layui-form-label">
-                    <span style="color: red">*</span>类型</label>
-                <div class="layui-input-block" style="width:190px;">
-                    <select name="menuType" id="menuType" lay-verify="menuType"  lay-filter="menuType">
-                        <option value=""></option>
-                        <option value="0">按钮</option>
-                        <option value="1">一级菜单</option>
-                        <option value="2">二级菜单</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">父级菜单</label>
-                <div class="layui-input-inline">
-                    <input type="hidden" name="pid" id="pid">
-                    <input type="text" name="pname"  autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label"><span style="color: red">*</span>菜单名称</label>
-                <div class="layui-input-inline">
-                    <input type="text" id="name" name="name"  lay-verify="name"  autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label  class="layui-form-label">url</label>
-                <div class="layui-input-inline">
-                    <input type="text" id="url" name="url"  lay-verify="name"  autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">权限</label>
-                <div class="layui-input-inline">
-                    <input type="text" id="permission" name="permission"  lay-verify="permission"  autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">序号</label>
-                <div class="layui-input-inline">
-                    <input type="text" id="orderNum" name="orderNum"  lay-verify="orderNum"  autocomplete="off" class="layui-input">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style="width: 100%;height: 55px;background-color: white;border-top:1px solid #e6e6e6;
+        <div style="width: 100%;height: 55px;background-color: white;border-top:1px solid #e6e6e6;
   position: fixed;bottom: 1px;margin-left:-20px;">
-        <div class="layui-form-item" style=" float: right;margin-right: 30px;margin-top: 8px">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="*">增加</button>
-                <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+            <div class="layui-form-item" style=" float: right;margin-right: 30px;margin-top: 8px">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="*">增加</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+                </div>
             </div>
         </div>
-    </div>
-</form>
-<script th:src="@{../../../static/plugins/layui/layui.js}"></script>
+    </form>
+<script th:src="@{../../../static/plugins/layui/layui.all.js}"></script>
 <script th:src="@{../../../static/plugins/jquery/jquery-3.2.1.min.js}"></script>
 <script>
-    layui.use('form', function () {
-        var form = layui.form;
-
-        //各种基于事件的操作，下面会有进一步介绍
+    layui.use(['form', 'layer'], function () {
+        $ = layui.jquery;
+        var form = layui.form
+            , layer = layui.layer;
+        layui.tree({
+            elem: '#tree',
+            nodes: getTree()
+            , click: function (node) {
+                if (node.menuType == '1') {
+                    layer.msg('请勿选择按钮', {icon: 5, anim: 6});
+                    return false;
+                }
+                $('#pId').val(node.id);
+                $('#pName').val(node.name);
+            }
+        });
         //自定义验证规则
-        var type=$('#menuType');
+        var type = $('#menuType');
         form.verify({
-            menuType:function(v){
-                console.info(v=='')
-                if(v==''){
+            menuType: function (v) {
+                console.info(v == '')
+                if (v == '') {
                     return '类型不能为空';
                 }
             }
-            ,pName:function(v){
-                if(type.val()!='1'&&v.trim()==''){
+            , pName: function (v) {
+                if (type.val() != '1' && v.trim() == '') {
                     return '父菜单不能为空';
                 }
             }
-            ,name:function(v){
-                if(v.trim()==''){
+            , name: function (v) {
+                if (v.trim() == '') {
                     return '名称不能为空';
                 }
             }
-            ,url:function(v){
-                if(type.val()=='1'){
+            , url: function (v) {
+                if (type.val() == '1') {
                     $('#url').val('');
                 }
-                if(type.val()=='0'&&v.trim()==''){
+                if (type.val() == '0' && v.trim() == '') {
                     return 'url不能为空';
                 }
             }
-            ,permission:function(v){
-                if((type.val()=='1'||type.val()=='0')&&v.trim()==''){
+            , permission: function (v) {
+                if ((type.val() == '1' || type.val() == '0') && v.trim() == '') {
                     return '权限不能为空';
                 }
             }
-            ,orderNum: [/^[0-9]*[1-9][0-9]*$/, '请填写序号(正整数)']
+            , orderNum: [/^[0-9]*[1-9][0-9]*$/, '请填写序号(正整数)']
         });
+        form.on('select(menuType)', function (data) {
+            if (data.value == '2') {
+                $('#pid').val('');
+                dOs('pname', true);
+                dOs('permission', true);
+                dOs('url', false);
+            } else if (data.value == '0') {//按钮
+                dOs('url', true);
+                dOs('pname', false);
+                dOs('permission', false);
+            } else if (data.value == '1') {
+                dOs('url', false);
+                dOs('pname', false);
+                dOs('permission', false);
+            }
+        });
+
+        /**
+         * id :元素id
+         * flag true:禁止输入，false 允许输入
+         */
+        function dOs(id, flag) {
+            var $id = $("#" + id);
+            if (flag) {
+                $id.val('');
+                $id.attr('disabled', 'disabled').css('background', '#e6e6e6');
+            }
+            else
+                $id.removeAttr('disabled').css('background', 'white')
+        }
     });
+
+    function showTree() {
+        var p = $('#pname');
+        var cityObj = p;
+        var cityOffset = p.offset();
+        var width = p.css('width');
+        $('#treeNode').css({
+            left: '5px',
+            top:  '5px',
+            width: width,
+            border: '1px solid #e6e6e6'
+        }).slideDown('fast');
+        $('body').bind('mousedown', onBodyDown);
+        $('#treeNode').css('display', 'inline');
+    }
+
+    function hideMenu() {
+        $('#treeNode').fadeOut('fast');
+        $('body').unbind('blur', onBodyDown);
+    }
+
+    function onBodyDown(event) {
+        if (!(event.target.id == 'treeNode' || $(event.target).parents('#treeNode').length > 0)) {
+            hideMenu();
+        }
+    }
+
+    function getTree() {
+        var datas = [];
+        $.ajax({
+            url: "/sysMenu/menuTree",
+            type: "get",
+            async: false,
+            success: function (data) {
+                datas = data
+            },
+            error: function () {
+
+            }
+        })
+        return datas;
+    }
 </script>
 
 </body>
