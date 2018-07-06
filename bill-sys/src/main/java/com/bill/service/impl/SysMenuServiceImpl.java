@@ -10,7 +10,10 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author LiuYang
@@ -38,8 +41,33 @@ public class SysMenuServiceImpl implements SysMenuService{
     @Override
     public Result selectAll(String name, Integer pageIndex, Integer pageSize) {
         Page<SysMenu> page = PageHelper.startPage(pageIndex, pageSize);
-        List<SysMenu> sysMenuList = sysMenuMapper.selectAll(name);
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("name",name);
+        List<SysMenu> sysMenuList = sysMenuMapper.selectAll(map);
         return ResultUtils.success(sysMenuList,page.getTotal());
+    }
+
+    public List<SysMenu> getChildren(List<SysMenu> children,String id) {
+        List<SysMenu> sysMenus = new ArrayList<SysMenu>();
+        for(SysMenu menu:children){
+            if(id.equals(menu.getPid())){
+                sysMenus.add(menu);
+                getChildren(sysMenus,menu.getId());
+            }
+        }
+        return sysMenus;
+    }
+
+    @Override
+    public List<SysMenu> getTree() {
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("menuType",1);
+        List<SysMenu> menus = sysMenuMapper.selectAll(map);
+        List<SysMenu> childrens = sysMenuMapper.getChildren();
+        for(SysMenu menu:menus){
+            menu.setChildren(getChildren(childrens,menu.getId()));
+        }
+        return menus;
     }
 
     @Override

@@ -36,7 +36,7 @@
         WHERE  id = #{id}
     </update>
     <!-- 根据条件查询 -->
-    <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="selectAll" parameterType="java.util.Map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from sys_menu
@@ -44,6 +44,16 @@
         <if test="name != null">
             AND name  LIKE  CONCAT('%','${name}','%' )
         </if>
+        <if test="menuType != null">
+            AND menu_type  = #{menuType}
+        </if>
+    </select>
+    <!-- 查询所有子菜单 -->
+    <select id="getChildren"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_menu
+        where menu_type <![CDATA[!= ]]> 1
     </select>
     <!-- 根据id查询 -->
     <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">

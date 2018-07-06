@@ -42,6 +42,15 @@ public interface SysMenuService {
    Result selectAll(String name, Integer pageIndex, Integer pageSize);
     /**
     *@author LiuYang
+    *@methodName getTree
+    *@description 获取菜单树
+    *@date 2018/7/6 18:08
+    *@param
+    *@return java.util.List<com.bill.entity.SysMenu>
+    **/
+    List<SysMenu> getTree();
+    /**
+    *@author LiuYang
     *@methodName selectById
     *@description 按id查询
     *@date 2018/7/3 17:52
