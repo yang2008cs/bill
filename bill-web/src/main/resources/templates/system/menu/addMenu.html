@@ -25,9 +25,9 @@
                     <div class="layui-input-block" style="width:190px;">
                         <select name="menuType" id="menuType" lay-verify="menuType" lay-filter="menuType">
                             <option value=""></option>
-                            <option value="0">按钮</option>
                             <option value="1">一级菜单</option>
                             <option value="2">二级菜单</option>
+                            <option value="0">按钮</option>
                         </select>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                     <label class="layui-form-label">父级菜单</label>
                     <div class="layui-input-inline">
                         <input type="hidden" name="pid" id="pid">
-                        <input type="text" name="pname" lay-verify="pname" onclick="showTree();" autocomplete="off"
+                        <input type="text" name="pname" id="pname" lay-verify="pname" onclick="showTree();" autocomplete="off"
                                class="layui-input">
                     </div>
                     <div id="treeNode" style="display:none; position: absolute;z-index:1000;background-color: white;">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red">*</span>菜单名称</label>
+                    <label class="layui-form-label"><span style="color: red">*</span>名称</label>
                     <div class="layui-input-inline">
                         <input type="text" id="name" name="name" lay-verify="name" autocomplete="off"
                                class="layui-input">
@@ -52,7 +52,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">url</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="url" name="url" lay-verify="name" autocomplete="off" class="layui-input">
+                        <input type="text" id="url" name="url" lay-verify="url" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -75,14 +75,15 @@
   position: fixed;bottom: 1px;margin-left:-20px;">
             <div class="layui-form-item" style=" float: right;margin-right: 30px;margin-top: 8px">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="*">增加</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+                    <button  class="layui-btn layui-btn-normal" lay-filter="add" lay-submit="">增加</button>
+                    <button  class="layui-btn layui-btn-primary" id="close">取消</button>
                 </div>
             </div>
         </div>
     </form>
 <script th:src="@{../../../static/plugins/layui/layui.all.js}"></script>
 <script th:src="@{../../../static/plugins/jquery/jquery-3.2.1.min.js}"></script>
+<script th:src="@{../../../static/plugins/jquery/jquery.js}"></script>
 <script>
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
@@ -92,12 +93,12 @@
             elem: '#tree',
             nodes: getTree()
             , click: function (node) {
-                if (node.menuType == '1') {
+                if (node.menuType == '0') {
                     layer.msg('请勿选择按钮', {icon: 5, anim: 6});
                     return false;
                 }
-                $('#pId').val(node.id);
-                $('#pName').val(node.name);
+                $('#pid').val(node.id);
+                $('#pname').val(node.name);
             }
         });
         //自定义验证规则
@@ -109,7 +110,7 @@
                     return '类型不能为空';
                 }
             }
-            , pName: function (v) {
+            , pname: function (v) {
                 if (type.val() != '1' && v.trim() == '') {
                     return '父菜单不能为空';
                 }
@@ -120,22 +121,22 @@
                 }
             }
             , url: function (v) {
-                if (type.val() == '1') {
+                if (type.val() == '0') {
                     $('#url').val('');
                 }
-                if (type.val() == '0' && v.trim() == '') {
+                if (type.val() == '1' && v.trim() == '') {
                     return 'url不能为空';
                 }
             }
             , permission: function (v) {
-                if ((type.val() == '1' || type.val() == '0') && v.trim() == '') {
+                if ((type.val() == '2' || type.val() == '0') && v.trim() == '') {
                     return '权限不能为空';
                 }
             }
             , orderNum: [/^[0-9]*[1-9][0-9]*$/, '请填写序号(正整数)']
         });
         form.on('select(menuType)', function (data) {
-            if (data.value == '2') {
+            if (data.value == '1') {
                 $('#pid').val('');
                 dOs('pname', true);
                 dOs('permission', true);
@@ -144,7 +145,7 @@
                 dOs('url', true);
                 dOs('pname', false);
                 dOs('permission', false);
-            } else if (data.value == '1') {
+            } else if (data.value == '2') {
                 dOs('url', false);
                 dOs('pname', false);
                 dOs('permission', false);
@@ -164,7 +165,36 @@
             else
                 $id.removeAttr('disabled').css('background', 'white')
         }
+        $('#close').click(function(){
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        });
+
+        //监听提交
+        form.on('submit(add)', function(data){
+            data.field['icon']=$('#icon').text();
+            $.ajax({
+                url:'insert',
+                type:'post',
+                data:data.field,
+                async:false, dataType: "json", traditional: true,
+                success:function(data){
+                    console.info(data.msg);
+                    var index = parent.layer.getFrameIndex(window.name);
+                    window.top.layer.msg(data.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
+                    parent.layer.close(index);
+                    parent.location.replace(parent.location.href);
+                },error:function(){
+                    var index = parent.layer.getFrameIndex(window.name);
+                    window.top.layer.msg('请求失败',{icon:5,offset: 'rb',area:['120px','80px'],anim:2});
+                    parent.layer.close(index);
+                }
+            });
+            return false;
+        });
+        form.render();
     });
+
 
     function showTree() {
         var p = $('#pname');
@@ -172,8 +202,8 @@
         var cityOffset = p.offset();
         var width = p.css('width');
         $('#treeNode').css({
-            left: '5px',
-            top:  '5px',
+            left: cityOffset.left + 'px',
+            top: cityOffset.top + cityObj.outerHeight() + 'px',
             width: width,
             border: '1px solid #e6e6e6'
         }).slideDown('fast');
