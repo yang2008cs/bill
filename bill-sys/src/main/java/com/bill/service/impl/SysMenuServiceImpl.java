@@ -7,6 +7,7 @@ import com.bill.util.Result;
 import com.bill.util.ResultUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ import java.util.Map;
  * @date 2018-07-03 17:53
  */
 @Service
-public class SysMenuServiceImpl implements SysMenuService{
+public class SysMenuServiceImpl implements SysMenuService {
 
     @Autowired
     private SysMenuMapper sysMenuMapper;
@@ -41,18 +42,21 @@ public class SysMenuServiceImpl implements SysMenuService{
     @Override
     public Result selectAll(String name, Integer pageIndex, Integer pageSize) {
         Page<SysMenu> page = PageHelper.startPage(pageIndex, pageSize);
-        Map<String,Object> map = new HashMap<String, Object>();
-        map.put("name",name);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("name", name);
         List<SysMenu> sysMenuList = sysMenuMapper.selectAll(map);
-        return ResultUtils.success(sysMenuList,page.getTotal());
+        return ResultUtils.success(sysMenuList, page.getTotal());
     }
 
-    public List<SysMenu> getChildren(List<SysMenu> children,String id) {
+    public List<SysMenu> getChildren(List<SysMenu> children, String id) {
         List<SysMenu> sysMenus = new ArrayList<SysMenu>();
-        for(SysMenu menu:children){
-            if(id.equals(menu.getPid())){
+        for (SysMenu menu : children) {
+            if (id.equals(menu.getPid())) {
                 sysMenus.add(menu);
-                getChildren(sysMenus,menu.getId());
+                List<SysMenu> ch = getChildren(children, menu.getId());
+                if (CollectionUtils.isNotEmpty(ch)) {
+                    menu.setChildren(ch);
+                }
             }
         }
         return sysMenus;
@@ -60,12 +64,12 @@ public class SysMenuServiceImpl implements SysMenuService{
 
     @Override
     public List<SysMenu> getTree() {
-        Map<String,Object> map = new HashMap<String, Object>();
-        map.put("menuType",1);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("menuType", 1);
         List<SysMenu> menus = sysMenuMapper.selectAll(map);
         List<SysMenu> childrens = sysMenuMapper.getChildren();
-        for(SysMenu menu:menus){
-            menu.setChildren(getChildren(childrens,menu.getId()));
+        for (SysMenu menu : menus) {
+            menu.setChildren(getChildren(childrens, menu.getId()));
         }
         return menus;
     }
