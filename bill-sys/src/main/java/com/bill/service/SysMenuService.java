@@ -55,9 +55,9 @@ public interface SysMenuService {
     *@description 按id查询
     *@date 2018/7/3 17:52
     *@param id
-    *@return com.bill.util.Result
+    *@return com.bill.entity.SysMenu
     **/
-    Result selectById(String id);
+    SysMenu selectById(String id);
     /**
     *@author LiuYang
     *@methodName deleteById

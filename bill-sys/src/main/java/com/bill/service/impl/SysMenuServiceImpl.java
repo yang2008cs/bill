@@ -75,8 +75,8 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public Result selectById(String id) {
-        return ResultUtils.success(sysMenuMapper.selectById(id));
+    public SysMenu selectById(String id) {
+        return sysMenuMapper.selectById(id);
     }
 
     @Override
