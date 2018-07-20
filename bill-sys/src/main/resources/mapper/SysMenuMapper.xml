@@ -62,6 +62,13 @@
         from sys_menu
         where id = #{id,jdbcType=VARCHAR}
     </select>
+    <!-- 根据Pid查询 -->
+    <select id="selectByPid" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_menu
+        where p_id = #{id,jdbcType=VARCHAR}
+    </select>
     <!-- 删除 -->
     <delete id="deleteById" parameterType="java.lang.String">
         delete from sys_menu

@@ -80,8 +80,22 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
+    public List<SysMenu> getChildrenByPid(String pid) {
+        return sysMenuMapper.selectByPid(pid);
+    }
+
+    @Override
     public Result deleteById(String id) {
-        return ResultUtils.success(sysMenuMapper.deleteById(id));
+        List<SysMenu> childres = sysMenuMapper.selectByPid(id);
+        if(CollectionUtils.isEmpty(childres) && childres.size()==0){
+            return ResultUtils.success(sysMenuMapper.deleteById(id));
+        }else {
+            Result result = new Result();
+            result.setCode(500);
+            result.setMsg("存在子菜单,请先删除子菜单!");
+            return result;
+        }
+
     }
 
     @Override

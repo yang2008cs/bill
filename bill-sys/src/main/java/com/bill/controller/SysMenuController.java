@@ -81,4 +81,11 @@ public class SysMenuController {
     public List<SysMenu> menuTree() {
         return sysMenuService.getTree();
     }
+
+    @ApiOperation(value = "单条删除", httpMethod = "POST", notes = "单条删除")
+    @PostMapping("/menuDel")
+    @ResponseBody
+    public Result menuDel(@RequestParam("id")String id){
+        return sysMenuService.deleteById(id);
+    }
 }

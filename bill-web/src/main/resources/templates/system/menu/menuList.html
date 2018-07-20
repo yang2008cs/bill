@@ -21,6 +21,8 @@
 
 <table class="layui-table" id="table_menu" lay-data="{ id:'menuReload'}" lay-filter="demo"></table>
 <script th:src="@{../../../static/plugins/layui/layui.js}"></script>
+<script th:src="@{../../../static/plugins/jquery/jquery-3.2.1.min.js}"></script>
+<script th:src="@{../../../static/plugins/jquery/jquery.js}"></script>
 <script>
     layui.use('table', function () {
         var table = layui.table;
@@ -68,8 +70,8 @@
             if(obj.event === 'detail'){
                 layer.msg('ID：'+ data.id + ' 的查看操作');
             } else if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
+                layer.confirm('真的删除么?', function(index){
+                    delMenu(data.id)
                     layer.close(index);
                 });
             } else if(obj.event === 'edit'){
@@ -115,6 +117,21 @@
             shade: 0.4,
             title: title,
             content: url
+        });
+    }
+    function delMenu(id) {
+        $.ajax({
+            url: "menuDel",
+            type: "post",
+            data: {id: id},
+            success: function (d) {
+                if(d.code == 200){
+                    location.replace(location.href);
+                    parent.layer.msg(d.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
+                }else{
+                    parent.layer.msg(d.msg,{icon:5,offset: 'rb',area:['120px','80px'],anim:2});
+                }
+            }
         });
     }
 </script>
