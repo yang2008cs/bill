@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,6 +38,15 @@ public class SysMenuController {
     @ResponseBody
     public Result insert(SysMenu sysMenu) {
         return sysMenuService.insert(sysMenu);
+    }
+
+    @RequestMapping("showUpdateMenu")
+    public String showUpdateMenu(@RequestParam("id")String id, ModelMap modelMap){
+        SysMenu sysMenu = sysMenuService.selectById(id);
+        SysMenu psysMenu = sysMenuService.selectById(sysMenu.getPid());
+        modelMap.addAttribute("pname",psysMenu.getName());
+        modelMap.addAttribute("sysMenu",sysMenu);
+        return "system/menu/updateMenu";
     }
 
     @ApiOperation(value = "修改菜单", httpMethod = "POST", notes = "修改菜单")
