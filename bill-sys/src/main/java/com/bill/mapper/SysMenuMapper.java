@@ -58,6 +58,14 @@ public interface SysMenuMapper {
     *@return com.bill.entity.SysMenu
     **/
     SysMenu selectById(String id);
+
+    /**
+     * Liuyang
+     * 根据pid查询孩子
+     * @param pid
+     * @return
+     */
+    List<SysMenu> selectByPid(String pid);
     /**
     *@author LiuYang
     *@methodName deleteById
