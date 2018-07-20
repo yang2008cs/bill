@@ -73,7 +73,7 @@
                     layer.close(index);
                 });
             } else if(obj.event === 'edit'){
-                layer.alert('编辑行：<br>'+ JSON.stringify(data))
+                add('修改菜单', 'showUpdateMenu?id='+data.id, 700, 550);
             }
         });
         var $ = layui.$, active = {
