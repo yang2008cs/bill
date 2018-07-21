@@ -25,6 +25,7 @@
                         <div class="layui-input-block" style="width:190px;">
                             <select name="menuType" id="menuType" lay-verify="menuType" lay-filter="menuType">
                                 <option value="">请选择</option>
+                                <!--/*@thymesVar id="sysMenu" type="com.bill.entity.SysMenu"*/-->
                                 <option value="1" th:selected="${sysMenu.menuType==1}" >一级菜单</option>
                                 <option value="2" th:selected="${sysMenu.menuType==2}">二级菜单</option>
                                 <option value="0" th:selected="${sysMenu.menuType==0}">按钮</option>
@@ -34,8 +35,10 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">父级菜单</label>
                         <div class="layui-input-inline">
+                            <!--/*@thymesVar id="sysMenu" type="com.bill.entity.SysMenu"*/-->
                             <input type="hidden" name="pid" id="pid" th:value="${sysMenu.pid}">
                             <input type="hidden" name="id" id="id" th:value="${sysMenu.id}">
+                            <!--/*@thymesVar id="pname" type="java"*/-->
                             <input type="text" name="pname" id="pname" th:value="${pname}" lay-verify="pname" onclick="showTree();" autocomplete="off"
                                    class="layui-input">
                         </div>
@@ -46,6 +49,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label"><span style="color: red">*</span>名称</label>
                         <div class="layui-input-inline">
+                            <!--/*@thymesVar id="sysMenu" type="com.bill.entity.SysMenu"*/-->
                             <input type="text" id="name" name="name" th:value="${sysMenu.name}" lay-verify="name" autocomplete="off"
                                    class="layui-input">
                         </div>
@@ -53,12 +57,14 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">url</label>
                         <div class="layui-input-inline">
+                            <!--/*@thymesVar id="sysMenu" type="com.bill.entity.SysMenu"*/-->
                             <input type="text" id="url" name="url" lay-verify="url" th:value="${sysMenu.url}" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">权限</label>
                         <div class="layui-input-inline">
+                            <!--/*@thymesVar id="sysMenu" type="com.bill.entity.SysMenu"*/-->
                             <input type="text" id="permission" name="permission" th:value="${sysMenu.permission}" lay-verify="permission" autocomplete="off"
                                    class="layui-input">
                         </div>
@@ -66,6 +72,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">序号</label>
                         <div class="layui-input-inline">
+                            <!--/*@thymesVar id="sysMenu" type="com.bill.entity.SysMenu"*/-->
                             <input type="text" id="orderNum" name="orderNum" th:value="${sysMenu.orderNum}" lay-verify="orderNum" autocomplete="off"
                                    class="layui-input">
                         </div>
