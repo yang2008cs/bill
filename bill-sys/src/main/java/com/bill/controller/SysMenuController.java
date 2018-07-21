@@ -44,7 +44,9 @@ public class SysMenuController {
     public String showUpdateMenu(@RequestParam("id")String id, ModelMap modelMap){
         SysMenu sysMenu = sysMenuService.selectById(id);
         SysMenu psysMenu = sysMenuService.selectById(sysMenu.getPid());
-        modelMap.addAttribute("pname",psysMenu.getName());
+        if(null!=psysMenu) {
+            modelMap.addAttribute("pname", psysMenu.getName());
+        }
         modelMap.addAttribute("sysMenu",sysMenu);
         return "system/menu/updateMenu";
     }
