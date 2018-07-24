@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{../../../static/plugins/layui/css/layui.css}" media="all">
-    <title>菜单管理</title>
+    <title>角色管理</title>
     <style>
-       body{overflow-y: scroll;}
+        body{overflow-y: scroll;}
     </style>
 </head>
 <body>
@@ -19,7 +19,7 @@
     </div>
 </div>
 
-<table class="layui-table" id="table_menu" lay-data="{ id:'menuReload'}" lay-filter="demo"></table>
+<table class="layui-table" id="table_role" lay-data="{ id:'roleReload'}" lay-filter="demo"></table>
 <script th:src="@{../../../static/plugins/layui/layui.js}"></script>
 <script th:src="@{../../../static/plugins/jquery/jquery-3.2.1.min.js}"></script>
 <script th:src="@{../../../static/plugins/jquery/jquery.js}"></script>
@@ -27,19 +27,16 @@
     layui.use('table', function () {
         var table = layui.table;
         table.render({
-            elem: '#table_menu', //指定原始表格元素选择器（推荐id选择器）
+            elem: '#table_role', //指定原始表格元素选择器（推荐id选择器）
             height: 'full-20', //容器高度
-            url: '/sysMenu/menuList',
+            url: '/sysRole/roleList',
             cellMinWidth:80,
             cols: [
                 [
                     {type: 'checkbox',checkbox: true},
                     {title:'序号',templet: '#indexTpl'},
-                    {field: 'name',title:'菜单名称'},
-                    {field: 'url',title:'url'},
-                    {field: 'orderNum',title:'菜单序号'},
-                    {field: 'permission',title:'权限'},
-                    {field: 'menuType',title:'菜单类型',templet: function(d){ return d.menuType=="0"?'按钮':'菜单'}},
+                    {field: 'roleName',title:' 角色名称'},
+                    {field: 'remark',title:' 描述'},
                     {fixed: 'right',title:'操作',align:'center', toolbar: '#barDemo'}
                 ]
             ], //设置表头
@@ -75,12 +72,12 @@
                     layer.close(index);
                 });
             } else if(obj.event === 'edit'){
-                add('修改菜单', 'showUpdateMenu?id='+data.id, 700, 550);
+                add('修改 角色', 'showUpdateRole?id='+data.id, 700, 550);
             }
         });
         var $ = layui.$, active = {
             add: function () {
-                add('添加菜单', 'showAddMenu', 700, 550);
+                add('添加 角色', 'showAddRole', 700, 550);
             }
         }
         //绑定click点击事件
@@ -108,7 +105,7 @@
         }
         ;
         layer.open({
-            id: 'menu-add',
+            id: 'role-add',
             type: 2,
             area: [w + 'px', h + 'px'],
             fix: false,
@@ -121,7 +118,7 @@
     }
     function delMenu(id) {
         $.ajax({
-            url: "menuDel",
+            url: "roleDel",
             type: "post",
             data: {id: id},
             success: function (d) {
