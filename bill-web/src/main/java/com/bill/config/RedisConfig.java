@@ -25,8 +25,8 @@ import java.time.Duration;
  * @description: TODO
  * @date 2018-07-03 15:36
  */
-@Configuration
-@EnableCaching
+/*@Configuration
+@EnableCaching*/
 public class RedisConfig {
     private static final String NULL = "NULL";
 
