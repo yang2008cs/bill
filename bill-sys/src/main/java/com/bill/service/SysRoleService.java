@@ -6,7 +6,7 @@ import com.bill.util.Result;
 import java.util.List;
 
 public interface SysRoleService {
-    Result insert(SysRole sysRole);
+    Result insert(SysRole sysRole,String []menus);
 
     Result update(SysRole sysRole);
 

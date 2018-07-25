@@ -1,6 +1,7 @@
 package com.bill.controller;
 
 import com.bill.entity.SysRole;
+import com.bill.service.SysRoleMenuSevice;
 import com.bill.service.SysRoleService;
 import com.bill.util.Result;
 import io.swagger.annotations.Api;
@@ -42,8 +43,8 @@ public class SysRoleController {
     @ApiOperation(value = "添加角色", httpMethod = "POST", notes = "添加角色")
     @PostMapping("insert")
     @ResponseBody
-    public Result insert(SysRole sysRole) {
-        return sysRoleService.insert(sysRole);
+    public Result insert(SysRole sysRole, String[] menus) {
+        return sysRoleService.insert(sysRole,menus);
     }
 
     @ApiOperation(value = "修改角色页面", httpMethod = "GET", notes = "修改角色页面")
