@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 @Api(value = "sysRole-controller", description = "角色接口")
@@ -48,8 +49,11 @@ public class SysRoleController {
     }
 
     @ApiOperation(value = "修改角色页面", httpMethod = "GET", notes = "修改角色页面")
-    @GetMapping("/showupdateRole")
-    public String showupdateRole(){return "system/role/updateRole";}
+    @GetMapping("/updateRole")
+    public String showupdateRole(String id, ModelMap modelMap){
+        SysRole sysRole = sysRoleService.selectById(id);
+        modelMap.addAttribute("sysRole",sysRole);
+        return "system/role/updateRole";}
 
     @ApiOperation(value = "修改角色", httpMethod = "POST", notes = "修改角色")
     @PostMapping("update")
