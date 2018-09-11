@@ -6,12 +6,15 @@
 
     <groupId>com.bill</groupId>
     <artifactId>bill</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <modules>
         <module>bill-web</module>
         <module>bill-sys</module>
         <module>bill-core</module>
+        <module>bill-face</module>
+        <module>bill-face</module>
     </modules>
 
     <parent>
