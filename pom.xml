@@ -83,6 +83,24 @@
             <artifactId>Java-WebSocket</artifactId>
             <version>1.3.0</version>
         </dependency>
+        <!--tio-core-->
+        <dependency>
+            <groupId>org.t-io</groupId>
+            <artifactId>tio-core</artifactId>
+            <version>3.1.9.v20180828-RELEASE</version>
+        </dependency>
+        <!--tio-websocket-server-->
+        <dependency>
+            <groupId>org.t-io</groupId>
+            <artifactId>tio-websocket-server</artifactId>
+            <version>3.1.9.v20180828-RELEASE</version>
+        </dependency>
+        <!--tio-http-server-->
+        <dependency>
+            <groupId>org.t-io</groupId>
+            <artifactId>tio-http-server</artifactId>
+            <version>3.1.9.v20180828-RELEASE</version>
+        </dependency>
         <!-- thymeleaf 静态模板技术 官方推荐-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
