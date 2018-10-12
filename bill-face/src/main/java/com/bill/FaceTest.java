@@ -15,6 +15,35 @@ import java.util.Random;
 import javax.net.ssl.SSLException;
 public class FaceTest {
 
+    //人脸对比
+   /* public static void main(String[] args) throws Exception{
+
+        File file = new File("D://img//10.jpg");
+        byte[] buff = getBytesFromFile(file);
+        File file1 = new File("D://img//18.jpg");
+        byte[] buff1 = getBytesFromFile(file1);
+        //String url = "https://api-cn.faceplusplus.com/facepp/v3/detect";
+        String url = "https://api-cn.faceplusplus.com/facepp/v3/compare";
+        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, byte[]> byteMap = new HashMap<>();
+        map.put("api_key", "C0OxgBqLDg6rMwyqIrfyVjVYK00drTu7");
+        map.put("api_secret", "KfktRNiqfVy_P-E6WJRdKaDNuLGagMor");
+        //map.put("return_landmark", "1");
+        //map.put("return_attributes", "gender,age,smiling,headpose,facequality,blur,eyestatus,emotion,ethnicity,beauty,mouthstatus,eyegaze,skinstatus");
+        byteMap.put("image_file1", buff);
+        byteMap.put("image_file2", buff1);
+        try{
+            byte[] bacd = post(url, map, byteMap);
+            String str = new String(bacd);
+            System.out.println("str"+str);
+            JSONObject  jsonObject = JSONObject.parseObject(str);
+            Map<String,Object> map1 = jsonObject;
+            System.out.println("map"+map1);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
+    //人脸识别
     public static void main(String[] args) throws Exception{
 
         File file = new File("你的本地图片路径");
