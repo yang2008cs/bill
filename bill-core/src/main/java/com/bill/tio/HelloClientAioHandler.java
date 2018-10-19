@@ -8,10 +8,7 @@ import org.tio.core.GroupContext;
 import org.tio.core.exception.AioDecodeException;
 import org.tio.core.intf.Packet;
 
-/**
- * 
- * @author tanyaowu
- */
+
 public class HelloClientAioHandler implements ClientAioHandler {
 	private static HelloPacket heartbeatPacket = new HelloPacket();
 

@@ -8,14 +8,9 @@ import org.tio.client.intf.ClientAioHandler;
 import org.tio.client.intf.ClientAioListener;
 import org.tio.core.Tio;
 import org.tio.core.Node;
-import org.tio.examples.helloworld.common.Const;
-import org.tio.examples.helloworld.common.HelloPacket;
+;
 
-/**
- *
- * @author tanyaowu
- *
- */
+
 public class HelloClientStarter {
 	//服务器节点
 	public static Node serverNode = new Node(Const.SERVER, Const.PORT);
