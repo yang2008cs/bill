@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class Application {
 
 	public static void main(String[] args) {
+		System.setProperty("es.set.netty.runtime.available.processors", "false");
 		ApplicationContext applicationContext=SpringApplication.run(Application.class,args);
 		System.out.println("Server start succ");
 	}
