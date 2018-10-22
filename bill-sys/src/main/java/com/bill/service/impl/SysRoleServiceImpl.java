@@ -1,12 +1,12 @@
 package com.bill.service.impl;
 
-import com.bill.entity.SysMenu;
+import com.alibaba.fastjson.JSONObject;
 import com.bill.entity.SysRole;
 import com.bill.entity.SysRoleMenu;
 import com.bill.mapper.SysRoleMapper;
 import com.bill.mapper.SysRoleMenuMapper;
-import com.bill.service.SysRoleMenuSevice;
 import com.bill.service.SysRoleService;
+import com.bill.util.ElasticSearchUtils;
 import com.bill.util.Result;
 import com.bill.util.ResultUtils;
 import com.github.pagehelper.Page;
@@ -38,6 +38,7 @@ public class SysRoleServiceImpl implements SysRoleService {
                sysRoleMenus.add(sysRoleMenu);
            }
             sysRoleMenuMapper.insert(sysRoleMenus);
+        ElasticSearchUtils.crateIndex(JSONObject.toJSONString(sysRole),"SysRole");
         }
         return ResultUtils.success(data);
     }

@@ -82,4 +82,7 @@
       #{item}
     </foreach>
     </delete>
+    <select id="delById" resultType="int">
+
+    </select>
 </mapper>
