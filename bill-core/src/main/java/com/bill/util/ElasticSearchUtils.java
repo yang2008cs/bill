@@ -16,15 +16,15 @@ public class ElasticSearchUtils {
      * 构建Settings 对象
      */
     private static Settings settings = Settings.builder().put("cluster.name", "elasticsearch")
-            .put("client.transport.sniff", true).put("node.name","first_node")
+            .put("client.transport.sniff", true)
             .build();
     /**
      * TransportClient 对象, 用于连接ES集群
      */
     private static volatile TransportClient client;
 
-    private final static String article="article";
-    private final static String content="content";
+    private final static String article = "article";
+    private final static String content = "content";
 
     /**
      * 同步synchronized(*.class)代码块的作用和synchronized static方法作用一样,
@@ -39,8 +39,8 @@ public class ElasticSearchUtils {
                 try {
                     /*String[] allHost = host.split(",");
                     for (String str : allHost) {*/
-                        client.addTransportAddresses(new TransportAddress(InetAddress.getByName("127.0.0.1"), 9300));
-                   /* }*/
+                    client.addTransportAddresses(new TransportAddress(InetAddress.getByName("127.0.0.1"), 9300));
+                    /* }*/
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
                 }
@@ -52,13 +52,13 @@ public class ElasticSearchUtils {
 
     public static void crateIndex(String jsonStr, String type) {
         try {
-            if(client == null){
+            if (client == null) {
                 client = getClient();
             }
             IndexResponse response = client.prepareIndex("bill", type)
                     .setSource(jsonStr, XContentType.JSON)
                     .get();
-            System.out.println("添加索引成功,版本号："+response.getVersion());
+            System.out.println("添加索引成功,版本号：" + response.getVersion());
         } catch (Exception e) {
             e.printStackTrace();
         }
